@@ -23,6 +23,10 @@
 		<li>프로토콜 : <%=request.getProtocol() %></li>
 		<li>서버명 : <%=request.getServerName() %></li>
 		<li>서버포트 : <%=request.getServerPort() %></li>
+		<!-- 
+		로컬 웹서버의 주소는 localhost혹은 127.0.01과 같은 루프백을 사용하나
+		request객체를 통해 출력하면 0:0:0:0:0:0:1 이와같이 출력된다.
+		 -->
 		<li>사용자 IP주소 : <%=request.getRemoteAddr() %></li>
 		<li>QueryString : <%=request.getQueryString() %></li>
 		<li>전송된 값 확인 : <%=request.getParameter("paramHan") %></li>

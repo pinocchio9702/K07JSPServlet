@@ -1,3 +1,4 @@
+<%@page import="util.FirstFunction"%>
 <%@page import="java.io.IOException"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -16,7 +17,7 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
 <body>
-	<h3>구구단 출력 - 표현식으로 구현</h3>
+	<h3>구구단 출력1 - 표현식으로 구현</h3>
 	<table border="1">
 		<%
 			//단만큼 반복한다.
@@ -56,9 +57,14 @@
 		}
 	}%>
 
-	<h3>구구단출력 - 선언부에서 함수 선언후 호출</h3>
+	<h3>구구단출력2 - 선언부에서 함수 선언후 호출</h3>
 	<%
 		showGugudan(out);
+	%>
+	
+	<h3>구구단출력3 - src부분에 클래스 선언후 함수 호출</h3>
+	<%
+		FirstFunction.srcGuGudan(out);
 	%>
 </body>
 </html>
