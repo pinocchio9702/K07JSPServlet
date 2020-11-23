@@ -74,6 +74,10 @@
 				주의해야 한다. 
 			-->
 		</textarea>
+		
+		<br/>
+		
+			<input type="submit" value="post방식 " />
 			
 	</form>
 </body>
