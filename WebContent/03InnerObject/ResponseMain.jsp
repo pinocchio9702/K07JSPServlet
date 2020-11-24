@@ -17,7 +17,7 @@
 		<tr>
 			<td>아이디</td>
 			<td>
-				<input type="text" name="user_Id">
+				<input type="text" name="user_id">
 			</td>
 		</tr>
 		<tr>
