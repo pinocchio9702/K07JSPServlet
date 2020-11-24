@@ -35,7 +35,7 @@
 	<h2>파라미터로 전달된 값 출력하기</h2>
 	<%
 		request.setCharacterEncoding("UTF-8");
-		out.println(request.getParameter("param"));
+		out.println(request.getParameter("param"));//포워드 방식 출력
 	%>
 
 </body>
