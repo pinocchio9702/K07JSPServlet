@@ -35,6 +35,7 @@
 	userBean의 id속성과 setProperty의 name속성값이 서로 연결되어
 	빈을 지정하게되고, setter()를 통해 값이 설정된다.
 	즉, DTO클래스 setter()가 없으면 액션태그는 에러를 발생시킨다.
+	property속성 : 빈의 멤버변수를 지정한다
 	 -->
 	<h3>setProperty 액션태그로 자바빈 객체 속성 지정하기</h3>
 	<jsp:setProperty property="id" name="member1" value="KIM"/>
