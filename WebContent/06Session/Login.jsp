@@ -46,7 +46,7 @@ if(session.getAttribute("USER_ID")==null){
 	<!-- 
 		로그인 1단계 : LoginPLoginProcess.jsp
 		로그인 2단계 : LoginProcessDTO.jsp
-		로그인 2단계 : LoginProcessMap.jsp
+		로그인 3단계 : LoginProcessMap.jsp
 		
 	 -->
 	<form action="LoginProcessMap.jsp" method="post" name="loginFrm"
