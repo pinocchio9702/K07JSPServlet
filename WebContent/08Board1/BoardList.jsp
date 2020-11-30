@@ -52,14 +52,13 @@ int totalPage = (int)Math.ceil((double)totalRecordCount/pageSize);
 
 int nowPage = (request.getParameter("nowPage") == null
 				|| request.getParameter("nowPage").equals(""))
-	? 3 : Integer.parseInt(request.getParameter("nowPage"));
+	? 1 : Integer.parseInt(request.getParameter("nowPage"));
 
 int start = (nowPage-1)*pageSize + 1;
 int end = nowPage * pageSize;
 
 param.put("start", start);
 param.put("end", end);
-
 
 
 /***********************페이지 처리를 위한 코드 추가 end****************************/
