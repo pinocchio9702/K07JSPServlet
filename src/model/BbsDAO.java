@@ -292,8 +292,57 @@ public class BbsDAO {
 	}
 	
 	
+	public List<BbsDTO> selectListPage(Map<String, Object> map){
+		List<BbsDTO> bbs = new Vector<BbsDTO>();
+		
+		String query = "  "
+				+ " SELECT * FROM ( "
+				+ "  SELECT Tb. *, ROWNUM rNum FROM (  "
+				+ "     SELECT * FROM board ";
+		
+		if(map.get("Word") != null) {
+			query += " WHERE  " + map.get("Column") + " "
+				+ " LIKE '%" + map.get("Word") + "%' ";
+		}
+		query += " "
+			+"       ORDER BY num DESC  "
+			+"    ) Tb  "
+			+"  )  "
+			+" WHERE rNum BETWEEN ? AND ?";
+		System.out.println("쿼리문 : " + query);
+		try {
+			
+			
+			psmt = con.prepareStatement(query);
+			
+			
+			psmt.setString(1, map.get("start").toString());
+			psmt.setString(2, map.get("end").toString());
+			
+			rs = psmt.executeQuery();
+			
+			while(rs.next()) {
+				BbsDTO dto = new BbsDTO();
+				
+				dto.setNum(rs.getString("num"));
+				dto.setTitle(rs.getString("title"));
+				dto.setContent(rs.getString("content"));
+				dto.setPostDate(rs.getDate("postdate"));
+				dto.setId(rs.getString("id"));
+				dto.setVisitcount(rs.getString("visitcount"));
+				
+				bbs.add(dto);
+			}
+			
+		}catch (Exception e) {
+			System.out.println("update중 예외발생");
+			e.printStackTrace();
+		}
+	
+		return bbs;
 	
 	
+	}
 	
 	
 	

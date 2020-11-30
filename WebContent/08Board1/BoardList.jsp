@@ -1,3 +1,4 @@
+<%@page import="util.PagingUtil"%>
 <%@page import="model.BbsDTO"%>
 <%@page import="java.util.List"%>
 <%@page import="model.BbsDAO"%>
@@ -38,8 +39,36 @@ if(searchWord != null){
 
 //board테이블에 입력된 전체 레코드 갯수를 카운트하여 반환
 int totalRecordCount = dao.getTotalRecordCount(param);
+
+
+
+/***********************페이지 처리를 위한 코드 추가 start****************************/
+int pageSize = 
+	Integer.parseInt(application.getInitParameter("PAGE_SIZE"));
+int blockPage = 
+	Integer.parseInt(application.getInitParameter("BLOCK_PAGE"));
+
+int totalPage = (int)Math.ceil((double)totalRecordCount/pageSize);
+
+int nowPage = (request.getParameter("nowPage") == null
+				|| request.getParameter("nowPage").equals(""))
+	? 3 : Integer.parseInt(request.getParameter("nowPage"));
+
+int start = (nowPage-1)*pageSize + 1;
+int end = nowPage * pageSize;
+
+param.put("start", start);
+param.put("end", end);
+
+
+
+/***********************페이지 처리를 위한 코드 추가 end****************************/
+
+
+
 //board테이블의 레코드를 select하여 결과셋을 List컬렉션으로 반환
-List<BbsDTO> bbs = dao.selectList(param);
+//List<BbsDTO> bbs = dao.selectList(param); //페이지 처리 x
+List<BbsDTO> bbs = dao.selectListPage(param); //페이지 처리 0
 
 //DB자해제
 dao.close();
@@ -133,9 +162,24 @@ dao.close();
 					for(BbsDTO dto : bbs){
 						/*
 						전체 레코드수를 이용하여 가상 번호를 부여하고
-						반복시 1씩 차감한다.
+						반복시 1씩 차감한다.(페이지처리 없을때의 방식)
 						*/
-						vNum = totalRecordCount --;
+						/*vNum = totalRecordCount --;*/
+						
+						//페이지 처리를 할때 가상번호 계산방법
+						vNum = totalRecordCount -
+							(((nowPage-1) * pageSize) + countNum++);
+						
+						/*
+						전체 게시물 : 106개
+						페이지 사이즈(web.xml에 PAGE_SIZE로설정) : 10
+						현제페이지1일때
+							첫번째 게시물 : 106 - (((1-1)*10)+0) = 106
+							두번째 게시물 : 106 - (((1-1)*10)+1) = 105
+						 현재페이지 2일때
+						 	첫번째 게시물 : 106 - (((2-1)*10)+0) = 96
+						 	두번째 게시물 : 106 - (((2-1)*10)+1) = 95
+						*/
 				
 				%>
 				<!-- 리스트반복 -->
@@ -147,8 +191,8 @@ dao.close();
 						</a>
 					</td>
 					<td class="text-center"><%=dto.getId() %></td>
-					<td class="text-center"><%=dto.getVisitcount() %></td>
 					<td class="text-center"><%=dto.getPostDate() %></td>
+					<td class="text-center"><%=dto.getVisitcount() %></td>
 					<!--  <td class="text-center"><i class="material-icons" style="font-size:20px">attach_file</i></td>-->
 				</tr>
 				<!-- 리스트 반복 -->
@@ -180,15 +224,22 @@ dao.close();
 				<div class="col">
 					<!-- 페이지번호 부분 -->
 					<ul class="pagination justify-content-center">
-						<li class="page-item"><a href="#" class="page-link"><i class="fas fa-angle-double-left"></i></a></li>
-						<li class="page-item"><a href="#" class="page-link"><i class="fas fa-angle-left"></i></a></li>
-						<li class="page-item"><a href="#" class="page-link">1</a></li>		
-						<li class="page-item active"><a href="#" class="page-link">2</a></li>
-						<li class="page-item"><a href="#" class="page-link">3</a></li>
-						<li class="page-item"><a href="#" class="page-link">4</a></li>		
-						<li class="page-item"><a href="#" class="page-link">5</a></li>
-						<li class="page-item"><a href="#" class="page-link"><i class="fas fa-angle-right"></i></a></li>
-						<li class="page-item"><a href="#" class="page-link"><i class="fas fa-angle-double-right"></i></a></li>
+						<!-- 
+						totalRecordCount : 게시물의 전체개수
+						pageSize : 한페이지의 출력할 게시물의 갯수
+						blockPage : 한 블록에 표시할 페이지번호의 갯수
+						nowPage : 현제페이지 번호
+						"BoardList.jsp?" : 해당 게시판의 실행 파일명
+						 -->
+						
+						
+						<%=PagingUtil.paginBS4(
+								totalRecordCount, 
+								pageSize, 
+								blockPage, 
+								nowPage, 
+								"BoardList.jsp?") %>
+						
 					</ul>
 				</div>				
 			</div>

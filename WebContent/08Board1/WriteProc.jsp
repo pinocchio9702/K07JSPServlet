@@ -24,6 +24,12 @@ dto.setId(session.getAttribute("USER_ID").toString());
 BbsDAO dao = new BbsDAO(application);
 
 //사용자의 입력값을 저정한 DTO객체를 DAO로 전달 후 insert처리
+/*int affected =1;
+for(int i=1; i<=100; i++){
+	dto.setTitle(title + " " + i + "번째 게시물");
+	dao.insertWrite(dto);
+}*/
+
 int affected = dao.insertWrite(dto);
 
 if(affected ==1){
