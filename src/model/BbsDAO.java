@@ -250,9 +250,46 @@ public class BbsDAO {
 	}
 	
 	
+	//게시물 수정하기
+	public int updateEdit(BbsDTO dto) {
+		int affected = 0;
+		try {
+			String query = "UPDATE board SET  "
+					+ "  title=?, content=?  "
+					+ "  WHERE num=?";
+			
+			psmt = con.prepareStatement(query);
+			psmt.setString(1, dto.getTitle());
+			psmt.setString(2, dto.getContent());
+			psmt.setString(3, dto.getNum());
+			
+			affected = psmt.executeUpdate();
+			
+		}catch (Exception e) {
+			System.out.println("update중 예외발생");
+			e.printStackTrace();
+		}
+		
+		return affected;
+	}
 	
-	
-	
+	//게시물 삭제처리
+	public int delete(BbsDTO dto) {
+		int affected = 0;
+		try {
+			String query = "DELETE FROM board WHERE num=?";
+			
+			psmt = con.prepareStatement(query);
+			psmt.setNString(1, dto.getNum());
+			
+			affected = psmt.executeUpdate();
+		}catch (Exception e) {
+			System.out.println("delete중 예외발생");
+			e.printStackTrace();
+		}
+		
+		return affected;
+	}
 	
 	
 	

@@ -15,6 +15,8 @@ String content = request.getParameter("content");//내용
 BbsDTO dto = new BbsDTO();
 dto.setTitle(title);
 dto.setContent(content);
+
+
 //세션영역에 저장된 회원인증정보를 가져와서 DTO에 삽입
 dto.setId(session.getAttribute("USER_ID").toString());
 
@@ -26,6 +28,10 @@ int affected = dao.insertWrite(dto);
 
 if(affected ==1){
 	//글쓰기에 성공했을때
+	/*
+	새로운 게시물이 작성되었으므로 확인을 위해
+	리스트의 첫번째 페이지로 이동해야 한다.
+	*/
 	response.sendRedirect("BoardList.jsp");
 }
 else{

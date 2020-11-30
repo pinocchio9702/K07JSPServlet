@@ -14,13 +14,13 @@ i<%@ page language="java" contentType="text/html; charset=UTF-8"
 		<!-- Links -->
 		<ul class="navbar-nav">
 			<li class="nav-item">
-				<a class="nav-link text-dark" href="#">자유게시판</a>
+				<a class="nav-link text-dark" href="../08Board1/BoardList.jsp">자유게시판</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link text-dark" href="#">자료실</a>
+				<a class="nav-link text-dark" href="javascript:alert('준비중)">자료실</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link text-dark" href="#">방명록</a>
+				<a class="nav-link text-dark" href="javascript:alert('준비중)">방명록</a>
 			</li>
 			<li class="nav-item dropdown">
 				<a class="nav-link dropdown-toggle text-dark" href="#" id="navbardrop" data-toggle="dropdown">
@@ -43,18 +43,29 @@ i<%@ page language="java" contentType="text/html; charset=UTF-8"
 			</div>
 		</form>
 		<ul class="navbar-nav ml-auto" >
-			<!-- <li class="nav-item">
-				<a class="nav-link text-dark" href="#"><i class='fas fa-edit' style='font-size:20px'></i>회원가입</a>
+			
+		<!-- href에서 코드를 넣을때는 onclick과는 달리 javascript가 필요하다. -->
+		<%
+		if(session.getAttribute("USER_ID") == null){
+		%>
+			<li class="nav-item">
+				<a class="nav-link text-dark" href="javascript:alert('준비중')"><i class='fas fa-edit' style='font-size:20px'></i>회원가입</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link text-dark" href="#"><i class='fa fa-cogs' style='font-size:20px'></i>회원정보수정</a>
-			</li> -->
-			<li class="nav-item">
-				<a class="nav-link text-dark" href="#"><i class='fas fa-sign-in-alt' style='font-size:20px'></i>로그인</a>
+				<a class="nav-link text-dark" href="../06Session/Login.jsp" ><i class='fas fa-sign-in-alt' style='font-size:20px'></i>로그인</a>
 			</li>
+		<%
+		}else{
+		%>
 			<li class="nav-item">
-				<a class="nav-link text-dark" href="#"><i class='fas fa-sign-out-alt' style='font-size:20px'></i>로그아웃</a>
+				<a class="nav-link text-dark" href="#" onclick="alert('준비중')"><i class='fa fa-cogs' style='font-size:20px'></i>회원정보수정</a>
+			</li> 
+			<li class="nav-item">
+				<a class="nav-link text-dark" href="../06Session/Logout.jsp"><i class='fas fa-sign-out-alt' style='font-size:20px'></i>로그아웃</a>
 			</li>
+		<%
+		}
+		%>
 		</ul>
 	</nav>
 </div>
