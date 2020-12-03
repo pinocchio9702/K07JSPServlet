@@ -1,7 +1,6 @@
 package eltag;
 
-import java.awt.List;
-import java.awt.Vector;
+import model.MemberDAO;
 
 /*
 	EL에서 Java클래스의 메소드 호출 절차 및 방법
@@ -70,7 +69,29 @@ public class MyTagLib {
 		System.out.println("결과 2 : " + result2);
 		System.out.println("결과 3 : " + result3);
 		
-		List list = new Vector();
+		
 		
 	}
+	
+	
+	
+	/*
+	아이디/패스워드, DB연결을 위한 드라이버명, URL을 인자로 전달받아
+	회원여부를 판단하여 boolean을 반환해주는 메소드
+	*/
+	public static boolean memberLogin(String id, String pw, 
+			String drv, String url) {
+		//디비연결을 위한 객체 생성됨
+		MemberDAO dao = new MemberDAO(drv, url);
+		//아이디, 패스워드를 통한 휘원인증 및 결과 반환
+		boolean isBool = dao.isMember(id, pw);
+		//위 결과를 호출한 지점으로 반환
+		return isBool;
+		
+		
+	}
+	
+	
+	
+	
 }
