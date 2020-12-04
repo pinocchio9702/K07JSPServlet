@@ -114,7 +114,7 @@ dao.close();
 				<!-- 검색부분 -->
 				<form class="form-inline ml-auto">	
 					<div class="form-group">
-						<select name="searchColumn" class="form-control"><!--  여기도 헐~~~ -->
+						<select name="searchColumn" class="form-control">                                                                                                                                            
 							<option value="title"
 							<%=(searchColumn!=null && searchColumn.equals("title")) ?"selected":""%>>제목</option>
 							<option value="name"
