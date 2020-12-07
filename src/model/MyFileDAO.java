@@ -40,7 +40,7 @@ public class MyFileDAO {
 			String query = "INSERT INTO myfile( "
 					+ " idx, name, title, inter, ofile, sfile) "
 					+ " VALUES( "
-					+ " SEQ_BBS_NUM.nextval, ?,?,?,?,?";
+					+ " SEQ_BBS_NUM.nextval, ?,?,?,?,?)";
 			
 			psmt = con.prepareStatement(query);
 			psmt.setString(1, dto.getName());
