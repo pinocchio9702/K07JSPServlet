@@ -103,10 +103,10 @@
 		onsubmit="return isValidate(this);">
 		
 		작성자 : <input type="text" name="name" value="정우성" />
-		<br />
+		<br /> 
 		제목 : <input type="text" name="title" value="" />
 		<br />
-		관심사항 : 
+		관심사항 :   
 			<input type="checkbox" name="inter" 
 				value="정치" checked="checked" />정치
 			<input type="checkbox" name="inter" 

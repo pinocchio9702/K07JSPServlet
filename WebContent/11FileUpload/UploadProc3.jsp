@@ -1,5 +1,5 @@
 <%@page import="model.MyFileDAO"%>
-<%@page import="model.MyfileDTO"%>
+<%@page import="model.MyFileDTO"%>
 <%@page import="java.io.File"%>
 <%@page import="java.util.Date"%>
 <%@page import="java.text.SimpleDateFormat"%>
@@ -10,7 +10,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
-//한글깨짐처리(post로 폼값전송시 깨짐 부분 처리)
+	//한글깨짐처리(post로 폼값전송시 깨짐 부분 처리)
 request.setCharacterEncoding("UTF-8");
 
 //파일 업로드를 위한 MultipartRequest객체의 파라미터 준비
@@ -103,13 +103,13 @@ try{
 	}
 	/////////////////////////////////////////////////////////////
 	//DTO객체 생성한 후 폼값 저장
-	MyfileDTO dto = new MyfileDTO();
+	MyFileDTO dto = new MyFileDTO();
 	dto.setName(name);
 	dto.setTitle(title);
 	dto.setInter(inter.toString());
 	dto.setOfile(mr.getOriginalFileName("chumFile1"));//원본 파일 명
 	dto.setSfile(realFileName);//서버에 저장된 파일명
-	
+	 
 	//DAO객체 생성후 DB연결 및 insert처리
 	MyFileDAO dao = new MyFileDAO(application);
 	dao.myfileInsert(dto);
@@ -123,6 +123,6 @@ try{
 catch(Exception e){
 	request.setAttribute("errorMessage", "파일업로드오류");
 	request.getRequestDispatcher("FileUploadMain.jsp")
-			.forward(request, response);
+	.forward(request, response);
 }
 %>

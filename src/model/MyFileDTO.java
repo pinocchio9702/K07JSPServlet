@@ -1,6 +1,6 @@
 package model;
 
-public class MyfileDTO {
+public class MyFileDTO {
 	private String idx;	//일련번호
 	private String name;	//작성자
 	private String title;	//제목
@@ -93,7 +93,7 @@ public class MyfileDTO {
 		this.postdate = postdate;
 	}
 	
-	
+	 
 	
 	
 	
