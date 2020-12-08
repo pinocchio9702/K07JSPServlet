@@ -46,6 +46,9 @@ public class ListCtrl extends HttpServlet{
 			System.out.println(list.getName());
 		}
 		
+		//DB연결을 헤제하는 것이 아니라 커넥션풀에 개체를 반납한다.
+		dao.close();
+		
 		//데이터를 request영역에 저장한다.
 		req.setAttribute("test", "매핑확인용");
 		req.setAttribute("lists", lists);

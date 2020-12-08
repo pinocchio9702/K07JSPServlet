@@ -110,4 +110,38 @@ public class DataroomDAO {
 		return dataroom;
 		
 	}
+	
+	public int insert(DataroomDTO dto) {
+		int affected = 0;
+		try {
+			String sql = "INSERT INTO dataroom ( "
+					+ "  idx, title, name, content, attachedfile, pass, downcount)  "
+					+ "  VALUES ( "
+					+ "  dataroom_seq.NEXTVAL, ?,?,?,?,?,0)";
+			psmt = con.prepareStatement(sql);
+			psmt.setString(1, dto.getTitle());
+			psmt.setString(2, dto.getName());
+			psmt.setString(3, dto.getContent());
+			psmt.setString(4, dto.getAttachedfile());
+			psmt.setString(5, dto.getPass());
+			
+			affected = psmt.executeUpdate();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return affected;
+	}
+	
+	public void close() {
+		try {
+			//연결을 해제하는 것이 아니고 풀에 다시 반납한다.
+			if(rs!=null) rs.close();
+			if(psmt !=null) psmt.close();
+			if(con !=null) con.close();
+		}
+		catch (Exception e) {
+			System.out.println("자원반납시 예외발생");
+		}
+	}
 }

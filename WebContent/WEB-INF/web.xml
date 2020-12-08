@@ -128,6 +128,16 @@
 		<url-pattern>/DataRoom/DataList</url-pattern>
 	</servlet-mapping>
 	
+	<!-- 자료실 글쓰기 매핑 -->
+	<servlet>
+		<servlet-name>DataWrite</servlet-name>
+		<servlet-class>controller.WriteCtrl</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>DataWrite</servlet-name>
+		<url-pattern>/DataRoom/DataWrite</url-pattern>
+	</servlet-mapping>
+	
 	
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
