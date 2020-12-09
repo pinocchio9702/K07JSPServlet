@@ -1,6 +1,7 @@
 package controller;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.List;
@@ -9,6 +10,7 @@ import java.util.Vector;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
+import javax.servlet.ServletContext;
 import javax.sql.DataSource;
 
 import model.BbsDTO;
@@ -30,6 +32,19 @@ public class DataroomDAO {
 			System.out.println("DBCP연결 성공(인자생성자)");
 		} catch (Exception e) {
 			System.out.println("DBCP연결 실패(인자생성자)");
+			e.printStackTrace();
+		}
+	}
+	
+	public DataroomDAO(ServletContext ctx) {
+		try {
+			Class.forName(ctx.getInitParameter("JDBCDriver"));
+			String id = "kosmo";
+			String pw = "1234";
+			con = DriverManager.getConnection(ctx.getInitParameter("ConnectionURL"), id, pw);
+			System.out.println("DB연결 성공(인자생성자)");
+		} catch (Exception e) {
+			System.out.println("DB연결 실패(인자생성자)");
 			e.printStackTrace();
 		}
 	}
@@ -77,7 +92,7 @@ public class DataroomDAO {
 		}
 		
 		//최근게시물을 항상 위로 노출해야 하므로 작성된 순서의 역순으로 정렬한다.
-		sql += "   ORDER BY idx asc";
+		sql += "   ORDER BY idx desc";
 		
 		try {
 			psmt = con.prepareStatement(sql);
@@ -206,6 +221,56 @@ public class DataroomDAO {
 		return isCorr;
 	}
 	
+	
+	
+	public int delete(String idx) {
+		int affected = 0;
+		try {
+			String query = " DELETE FROM dataroom  "
+					+ "  WHERE idx=?";
+			psmt = con.prepareStatement(query);
+			psmt.setString(1, idx);
+			
+			affected = psmt.executeUpdate();
+		}
+		catch (Exception e) {
+			System.out.println("delecte중 예외발생");
+			e.printStackTrace();
+		}
+		
+		return affected;
+	}
+	
+	public int update(DataroomDTO dto) {
+		int affected = 0;
+		
+		try {
+			String query = "UPDATE dataroom SET  "
+					+ "  title=?, name=?, content=? "
+					+ "  , attachedfile=?, pass=? "
+					+ "  WHERE idx=?";
+			
+			psmt = con.prepareStatement(query);
+			psmt.setString(1, dto.getTitle());
+			psmt.setString(2, dto.getName());
+			psmt.setString(3, dto.getContent());
+			psmt.setString(4, dto.getAttachedfile());
+			psmt.setString(5, dto.getPass());
+			
+			//게시물을 수정을 위한 추가 부분
+			psmt.setString(6, dto.getIdx());
+			
+			affected = psmt.executeUpdate();
+			
+		}
+		catch (Exception e) {
+			System.out.println("update중 예외발생");
+			e.printStackTrace();
+		}
+		
+		return affected;
+	}
+	
 	public void close() {
 		try {
 			//연결을 해제하는 것이 아니고 풀에 다시 반납한다.
@@ -217,4 +282,7 @@ public class DataroomDAO {
 			System.out.println("자원반납시 예외발생");
 		}
 	}
+
+
+
 }
