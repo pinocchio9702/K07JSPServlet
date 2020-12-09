@@ -13,30 +13,22 @@
 	: 리스트에서 검색 후 상세보기, 그리고 다시 리스트 보기를
 	눌렀을때 검색이 유지되도록 처리하기 위한 코드
 */
-
 String queryStr = "";
 String searchColumn = request.getParameter("searchColumn");
 String searchWord = request.getParameter("searchWord");
 if(searchWord != null){
 	queryStr += "searchColumn=" + searchColumn + "&searchWord=" + searchWord;
 }
-
 //2페이지에서 상세보기 했다면 리스트로 돌아갈때도 페이지가 유지되어야 한다.
 String nowPage = request.getParameter("nowPage");
 queryStr += "&nowPage="+nowPage;
-
 //파라미터로 전송된 게시물의 일련번호를 받음
 String num = request.getParameter("num");
 BbsDAO dao = new BbsDAO(application);
-
-
-
 //조회수를 업데이트하여 visitcount컬럼을 1증가시킴
 dao.updateVisitCount(num);
-
 //일련번에 해당하는 게시물을 DTO객체로 반환함.
 BbsDTO dto = dao.selectView(num);
-
 dao.close();
 %>
 <!DOCTYPE html>

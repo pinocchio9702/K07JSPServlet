@@ -77,7 +77,7 @@ public class DataroomDAO {
 		}
 		
 		//최근게시물을 항상 위로 노출해야 하므로 작성된 순서의 역순으로 정렬한다.
-		sql += "   ORDER BY idx DESC";
+		sql += "   ORDER BY idx asc";
 		
 		try {
 			psmt = con.prepareStatement(sql);
@@ -131,6 +131,79 @@ public class DataroomDAO {
 			e.printStackTrace();
 		}
 		return affected;
+	}
+	//조회수 증가
+	public void updateVisitCount(String idx) {
+		String sql = " UPDATE dataroom SET "
+				+ " visitcount=visitcount+1  "
+				+ "  WHERE idx=?  ";
+		try {
+			psmt = con.prepareStatement(sql);
+			psmt.setString(1, idx);
+			psmt.executeUpdate();
+		}
+		catch (Exception e) {
+		}
+	}
+	
+	//자료실 게시물 상세보기
+	public DataroomDTO selectView(String idx) {
+		DataroomDTO dto = null;
+		String sql = " SELECT * FROM dataroom  "
+				+ " WHERE idx=?";
+		try {
+			psmt = con.prepareStatement(sql);
+			psmt.setString(1, idx);
+			rs = psmt.executeQuery();
+			if(rs.next()) {
+				dto = new DataroomDTO();
+				
+				dto.setIdx(rs.getString(1));
+				dto.setName(rs.getString(2));
+				dto.setTitle(rs.getString(3));
+				dto.setContent(rs.getString(4));
+				dto.setPostdate(rs.getDate(5));
+				dto.setAttachedfile(rs.getString(6));
+				dto.setDowncount(rs.getInt(7));
+				dto.setPass(rs.getString(8));
+				dto.setVisitcount(rs.getInt(9));//조회수추가
+				
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return dto;
+	}
+	
+	//게시물의 일련번호, 패스워드를 통한 검증(수정, 삭제시 호출됨)
+	public boolean isCorrectPassword(String pass, String idx) {
+		boolean isCorr = true;
+		try {
+			String sql = "SELECT COUNT(*) FROM dataroom "
+						+ " WHERE pass=? AND idx=? ";
+			psmt = con.prepareStatement(sql);
+			psmt.setString(1, pass);
+			psmt.setString(2, idx);
+			rs = psmt.executeQuery();
+			//자바에서 쿼리문을 받아서 오라클에 전달해줌
+			//오라클은 자바에 결과값을 반환해줌
+			//delect, update, insert는 숫자를 반환
+			//select는 레코드를 반환
+			//결과가 숫자일 경우 한번만 rs.next()해주면 된다.
+			//결과를 한번 읽어주는 역할을 하는게 next()이다.
+			//한행을 읽어준다.
+			rs.next();
+			if(rs.getInt(1) == 0) {
+				//패스워드 검증 실패(해당하는 게시물이 없음)
+				isCorr = false;
+			}
+		}
+		catch (Exception e) {
+			isCorr = false;
+			e.printStackTrace();
+		}
+		return isCorr;
 	}
 	
 	public void close() {

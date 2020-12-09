@@ -7,7 +7,7 @@
 
 <body>
 <div class="container">
-	<div class="row">		
+	<div class="row">		 
 		<jsp:include page="../common/boardTop.jsp" />
 	</div>
 	<div class="row">		

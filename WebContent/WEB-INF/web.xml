@@ -138,6 +138,26 @@
 		<url-pattern>/DataRoom/DataWrite</url-pattern>
 	</servlet-mapping>
 	
+	<!-- 자료실 상세보기 매핑 -->
+	<servlet>
+		<servlet-name>DataView</servlet-name>
+		<servlet-class>controller.ViewCtrl</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>DataView</servlet-name>
+		<url-pattern>/DataRoom/DataView</url-pattern>
+	</servlet-mapping>
+	
+	<!-- 자료실 패스워드 검증 매핑 -->
+	<servlet>
+		<servlet-name>DataRoomRassword</servlet-name>
+		<servlet-class>controller.PasswordCtrl</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>DataRoomRassword</servlet-name>
+		<url-pattern>/DataRoom/DataPassword</url-pattern>
+	</servlet-mapping>
+	
 	
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>

@@ -21,7 +21,7 @@ public class ListCtrl extends HttpServlet{
 		
 		//컨트롤러(서블릿) 및 View(jsp)로 전달할 파라미터를 저장하기 위한 맵 컬렉션
 		Map param = new HashMap();
-		String addQueryString = "";
+		String addQueryString = "";  
 		
 		//검색어 관련 파라미터 처리
 		String searchColumn = req.getParameter("searchColumn");
@@ -42,9 +42,6 @@ public class ListCtrl extends HttpServlet{
 		
 		//테이블 전체 레코드를 가져와서 List 컬렉션에 저장한다.
 		List<DataroomDTO> lists = dao.selectList(param);
-		for(DataroomDTO list : lists) {
-			System.out.println(list.getName());
-		}
 		
 		//DB연결을 헤제하는 것이 아니라 커넥션풀에 개체를 반납한다.
 		dao.close();

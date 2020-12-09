@@ -1,4 +1,3 @@
-
 <%@page import="util.JavascriptUtil"%>
 <%@page import="model.BbsDTO"%>
 <%@page import="model.BbsDAO"%>
@@ -10,18 +9,14 @@
 //파라미터로 전송된 게시물의 일련번호를 받음
 String num = request.getParameter("num");
 BbsDAO dao = new BbsDAO(application);
-
 //본인이 작성한 게시물임으로 조회수 증가는 의미없음.
-
 //일련번에 해당하는 게시물을 DTO객체로 반환함.
 BbsDTO dto = dao.selectView(num);
-
 //본인확인 후 작성자가 아니면 뒤로보내기
 if(!(session.getAttribute("USER_ID").toString().equals(dto.getId()))){
 	JavascriptUtil.jsAlertBack("작성자 본인만 수정이 가능합니다.", out);
 	return;
 }
-
 dao.close();
 %>
 

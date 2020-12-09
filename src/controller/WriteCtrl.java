@@ -23,7 +23,7 @@ public class WriteCtrl extends HttpServlet{
 		글쓰기 페이지로 진입할때는 다른 처리없이 포워드만 하면 된다.
 		*/
 		req.getRequestDispatcher("/14Dataroom/DataWrite.jsp")
-			.forward(req, resp);
+			.forward(req, resp); 
 	
 	}
 	/*
