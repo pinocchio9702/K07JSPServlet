@@ -84,7 +84,7 @@
 												loop.index) }
 											</td>
 											<td><a
-												href="../DataRoom/DataView?idx=${row.idx }&nowPage=${param.nowPage}">
+												href="../DataRoom/DataView?idx=${row.idx }&nowPage=${map.nowPage}&searchColumn=${param.searchColumn}&searchWord=${param.searchWord}">
 													${row.title } </a></td>
 											<td class="text-center">${row.name }</td>
 											<td class="text-center">${row.postdate }</td>
@@ -109,7 +109,7 @@
 						<!-- 각종 버튼 부분 -->
 						<!-- <button type="button" class="btn">Basic</button> -->
 						<button type="button" class="btn btn-primary"
-							onclick="location.href='../DataRoom/DataWrite';">글쓰기</button>
+							onclick="location.href='../DataRoom/DataWrite?nowPage=${map.nowPage}&searchColumn=${param.searchColumn}&searchWord=${param.searchWord}';">글쓰기</button>
 						<!-- <button type="button" class="btn btn-secondary">수정하기</button>
 					<button type="button" class="btn btn-success">삭제하기</button>
 					<button type="button" class="btn btn-info">답글쓰기</button>
@@ -124,21 +124,10 @@
 					<div class="col">
 						<!-- 페이지번호 부분 -->
 						<ul class="pagination justify-content-center">
-							<!-- 
-						totalRecordCount : 게시물의 전체개수
-						pageSize : 한페이지의 출력할 게시물의 갯수
-						blockPage : 한 블록에 표시할 페이지번호의 갯수
-						nowPage : 현제페이지 번호
-						"BoardList.jsp?" : 해당 게시판의 실행 파일명
-						 -->
+							${map.pagingImg }
 						</ul>
 					</div>
 				</div>
-				<!-- ### 게시판의 body 부분  end ### -->
-				<div class="text-center">
-					<%-- 텍스트 기반의 페이지 번호 출력하기 --%>
-				</div>
-
 			</div>
 		</div>
 		<div
